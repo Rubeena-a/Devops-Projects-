@@ -1,1 +1,9 @@
 
+version: '3.8'
+services:
+  app:
+    build: .
+    image: rubi58/ci-cd-node-docker:latest
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
