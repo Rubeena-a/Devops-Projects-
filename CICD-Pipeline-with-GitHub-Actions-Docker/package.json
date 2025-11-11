@@ -1,6 +1,7 @@
 
 {
-  "name": "ci-cd-node-docker",
+  "name": "CICD-Pipeline-with-GitHub-Actions-Docker",
+
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
