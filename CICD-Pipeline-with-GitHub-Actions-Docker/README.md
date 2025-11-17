@@ -1,5 +1,10 @@
 
+# CI/CD Pipeline Demo - Node + Docker + GitHub Actions
 
+## What it does
+- Runs tests on push/PR
+- Builds Docker image and pushes to Docker Hub
+- Deploys to Minikube (local) or run with docker-compose
 
 # CICD-Pipeline-with-GitHub-Actions-Docker  
 This repository contains a sample Node.js application that demonstrates a CI/CD pipeline using GitHub Actions and Docker. The pipeline includes automated testing, building a Docker image, and pushing it to Docker Hub.
@@ -30,6 +35,23 @@ The GitHub Actions workflow defined in `.github/workflows/ci-cd.yml` performs th
 4. **Run Tests**: Executes the test suite to ensure code quality.
 5. **Build Docker Image**: Builds a Docker image of the application.
 6. **Push Docker Image**: Pushes the Docker image to Docker Hub.
+
+## Quick start
+1. `npm install`
+2. `npm test`
+3. `docker build -t <user>/ci-cd-node-docker:latest .`
+4. `docker run -p 3000:3000 <user>/ci-cd-node-docker:latest`
+
+## CI
+- Workflow file: `.github/workflows/ci-cd.yml`.
+- Requires GitHub secrets: `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`.
+
+## Deploy to Minikube
+1. `minikube start --driver=docker`
+2. `kubectl apply -f k8s/deployment.yaml`
+3. `minikube service cicd-node-service --url`
+
+
 
 ## Screenshots
 ### GitHub Actions Workflow
