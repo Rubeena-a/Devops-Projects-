@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: rubi58/CICD-Pipeline-with-GitHub-Actions-Docker:latest
+        image: ${{ secrets.DOCKERHUB_USERNAME }}/cicd-pipeline-with-github-actions-docker:latest
         ports:
         - containerPort: 3000
 ---
