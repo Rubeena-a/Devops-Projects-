@@ -55,7 +55,7 @@ The GitHub Actions workflow defined in `.github/workflows/ci-cd.yml` performs th
 
 ## Screenshots
 ### GitHub Actions Workflow
-![alt text](screenshots/GitHubActions.png)
+
 
 ### A: Test app locally
 ```npm install```
