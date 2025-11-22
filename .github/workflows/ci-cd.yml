@@ -1,6 +1,7 @@
-name: CI/CD Pipeline
+name: CI/CD Debug
 
 on:
+  workflow_dispatch:          # allows manual runs from Actions UI
   push:
     branches: [ main ]
     paths:
@@ -10,54 +11,38 @@ on:
     paths:
       - 'CICD-Pipeline-with-GitHub-Actions/**'
 
-env:
-  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/CICD-Pipeline-with-GitHub-Actions-Docker
-
 jobs:
-  test:
-    name: Run tests
+  debug:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repo (full)
         uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          fetch-depth: 0
 
-      - name: Install dependencies
-        working-directory: CICD-Pipeline-with-GitHub-Actions
-        run: npm install
+      - name: Show environment
+        run: |
+          echo "GITHUB_REF=$GITHUB_REF"
+          echo "GITHUB_SHA=$GITHUB_SHA"
+          echo "GITHUB_EVENT_NAME=$GITHUB_EVENT_NAME"
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
 
-      - name: Run tests
-        working-directory: CICD-Pipeline-with-GitHub-Actions
-        run: npm test
+      - name: List top-level files
+        run: |
+          ls -la
+          echo "--- .github ---"
+          ls -la .github || true
+          echo "--- .github/workflows ---"
+          ls -la .github/workflows || true
+          echo "--- project folder ---"
+          ls -la CICD-Pipeline-with-GitHub-Actions || true
 
-  build-and-push:
-    name: Build and push Docker image
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - name: Show last commits affecting project folder
+        run: |
+          git --no-pager log -n 5 --pretty=oneline -- . || true
+          git --no-pager log -n 5 --pretty=oneline -- CICD-Pipeline-with-GitHub-Actions || true
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          # point build context to the project folder
-          context: ./CICD-Pipeline-with-GitHub-Actions
-          push: true
-          tags: ${{ env.IMAGE_NAME }}:latest
+      - name: Show changed files for this push (if available)
+        run: |
+          echo "Event JSON location: $GITHUB_EVENT_PATH"
+          jq -r '.commits[]?.added + " " + .commits[]?.modified + " " + .commits[]?.removed' $GITHUB_EVENT_PATH || true
