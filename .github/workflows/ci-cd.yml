@@ -3,8 +3,12 @@ name: CI/CD Pipeline
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'CICD-Pipeline-with-GitHub-Actions/**'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'CICD-Pipeline-with-GitHub-Actions/**'
 
 env:
   IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/CICD-Pipeline-with-GitHub-Actions-Docker
@@ -23,9 +27,11 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
+        working-directory: CICD-Pipeline-with-GitHub-Actions
         run: npm install
 
       - name: Run tests
+        working-directory: CICD-Pipeline-with-GitHub-Actions
         run: npm test
 
   build-and-push:
@@ -51,7 +57,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          # point build context to the project folder
+          context: ./CICD-Pipeline-with-GitHub-Actions
           push: true
           tags: ${{ env.IMAGE_NAME }}:latest
-
