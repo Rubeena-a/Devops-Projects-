@@ -1,10 +1,8 @@
-
 version: '3.8'
 services:
   app:
     build: .
-    image: ${{ secrets.DOCKERHUB_USERNAME }}/cicd-pipeline-with-github-actions-docker:latest
-
+    image: ${DOCKERHUB_USERNAME}/cicd-pipeline-with-github-actions-docker:latest
     ports:
       - "3000:3000"
     restart: unless-stopped
