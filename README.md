@@ -106,13 +106,16 @@ docker-compose up --build
 ### GitHub Actions Workflow
 On push, GitHub Actions triggers. Go to repo → Actions →  workflow run → view logs for ```test``` and ```build-and-push```
 ### 1. Successful Pipeline:
+### Run Tests
+<img width="1312" height="612" alt="image" src="https://github.com/user-attachments/assets/7eb7788f-9d03-4977-9275-34802fe78a31" />
+### Build and Push Docker Image
 <img width="1350" height="596" alt="image" src="https://github.com/user-attachments/assets/467c76d4-bd6e-44bc-a407-a6a643f8cc9c" />
 
 ### 2.  Failed Pipeline:
 <img width="1352" height="589" alt="image" src="https://github.com/user-attachments/assets/b3cf6fdb-1857-4c77-81f7-619504344609" />
 
-### 3. All Workflows Ran:
-<img width="1336" height="583" alt="image" src="https://github.com/user-attachments/assets/755bdd14-bbe3-4093-bcce-266dd47b750a" />
+### 3. All the Workflows Ran:
+<img width="1334" height="620" alt="image" src="https://github.com/user-attachments/assets/fb83c949-8b94-4f7e-87ae-8ad49f63550a" />
 
 
 ### After the image is pushed to Docker Hub — deploy to Minikube
