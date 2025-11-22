@@ -55,6 +55,13 @@ The GitHub Actions workflow defined in `.github/workflows/ci-cd.yml` performs th
 
 ## Screenshots
 ### GitHub Actions Workflow
+### Successful Pipeline:
+<img width="1350" height="596" alt="image" src="https://github.com/user-attachments/assets/467c76d4-bd6e-44bc-a407-a6a643f8cc9c" />
+### Failed Pipeline:
+<img width="1352" height="589" alt="image" src="https://github.com/user-attachments/assets/b3cf6fdb-1857-4c77-81f7-619504344609" />
+### All Workflows Ran:
+<img width="1336" height="583" alt="image" src="https://github.com/user-attachments/assets/755bdd14-bbe3-4093-bcce-266dd47b750a" />
+
 
 
 ### A: Test app locally
